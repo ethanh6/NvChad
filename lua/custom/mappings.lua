@@ -6,6 +6,18 @@ M.general = {
   n = {
     -- easy enter command mode
     -- [";"] = { ":", "enter command mode", opts = { nowait = true } },
+
+    -- toggle theme
+    ["<leader>aa"] = {
+      function()
+        require("base46").toggle_theme()
+      end,
+      "Toggle theme"
+    },
+    ["<leader>gg"] = {
+      "<cmd> LazyGit <CR>",
+      "LazyGit"
+    }
   }
 
 }
@@ -62,6 +74,7 @@ M.telescope = {
     ["<leader>fcmd"] = { "<cmd> Telescope commands <CR>", "Find Commands" },
     ["<leader>fch"] = { "<cmd> Telescope command_history <CR>", "Find Command History" },
     ["<leader>fsh"] = { "<cmd> Telescope search_history <CR>", "Find Search History" },
+    ["<leader>fk"] = { "<cmd> Telescope keymaps <CR>", "Find keymaps" },
 
     -- git
     ["<leader>fgc"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },  -- find git commit
