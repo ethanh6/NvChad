@@ -61,18 +61,31 @@ local plugins = {
   },
   {
     "kdheepak/lazygit.nvim",
-    	cmd = {
-    		"LazyGit",
-    		"LazyGitConfig",
-    		"LazyGitCurrentFile",
-    		"LazyGitFilter",
-    		"LazyGitFilterCurrentFile",
-    	},
-        -- optional for floating window border decoration
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-        },
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
   },
+  {
+    "AckslD/nvim-neoclip.lua",
+    config = function()
+      require("neoclip").setup()
+    end,
+  },
+  {
+    'nacro90/numb.nvim',
+    lazy = false,
+    config = function()
+      require('numb').setup()
+    end,
+  }
 
   -- To make a plugin not be loaded
   -- {

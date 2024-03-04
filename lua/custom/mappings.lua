@@ -70,11 +70,12 @@ M.telescope = {
   plugin = true,
 
   n = {
-    -- find command
+    -- find things
     ["<leader>fcmd"] = { "<cmd> Telescope commands <CR>", "Find Commands" },
     ["<leader>fch"] = { "<cmd> Telescope command_history <CR>", "Find Command History" },
     ["<leader>fsh"] = { "<cmd> Telescope search_history <CR>", "Find Search History" },
-    ["<leader>fk"] = { "<cmd> Telescope keymaps <CR>", "Find keymaps" },
+    ["<leader>fk"] = { "<cmd> Telescope keymaps <CR>", "Find Keymaps" },
+    ["<leader>fr"] = { "<cmd> Telescope registers <CR>", "Find Registers" },
 
     -- git
     ["<leader>fgc"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },  -- find git commit
