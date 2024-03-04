@@ -1,3 +1,6 @@
+local HEIGHT_RATIO = 0.8
+local WIDTH_RATIO = 0.618
+
 local options = {
   filters = {
     dotfiles = false,
@@ -13,10 +16,33 @@ local options = {
     update_root = false,
   },
   view = {
-    adaptive_size = false,
-    side = "left",
-    width = 30,
+    relativenumber = true,
+    side = "left", -- will be overwrite by float
     preserve_window_proportions = true,
+    float = {
+      enable = true,
+      open_win_config = function()
+        local screen_w = vim.opt.columns:get()
+        local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
+        local window_w = screen_w * WIDTH_RATIO
+        local window_h = screen_h * HEIGHT_RATIO
+        local window_w_int = math.floor(window_w)
+        local window_h_int = math.floor(window_h)
+        local center_x = (screen_w - window_w) / 2
+        local center_y = ((vim.opt.lines:get() - window_h) / 2) - vim.opt.cmdheight:get()
+        return {
+          border = "rounded",
+          relative = "editor",
+          row = center_y,
+          col = center_x,
+          width = window_w_int,
+          height = window_h_int,
+        }
+        end,
+    },
+    width = function()
+      return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
+    end,
   },
   git = {
     enable = false,
@@ -31,7 +57,8 @@ local options = {
     },
   },
   renderer = {
-    root_folder_label = false,
+    root_folder_label = true,
+    root_folder_modifier = ":t",
     highlight_git = false,
     highlight_opened_files = "none",
 
