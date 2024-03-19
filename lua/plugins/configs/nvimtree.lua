@@ -20,7 +20,7 @@ local options = {
     side = "left", -- will be overwrite by float
     preserve_window_proportions = true,
     float = {
-      enable = true,
+      enable = false,
       open_win_config = function()
         local screen_w = vim.opt.columns:get()
         local screen_h = vim.opt.lines:get() - vim.opt.cmdheight:get()
@@ -40,9 +40,9 @@ local options = {
         }
         end,
     },
-    width = function()
-      return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
-    end,
+    -- width = function()
+    --   return math.floor(vim.opt.columns:get() * WIDTH_RATIO)
+    -- end,
   },
   git = {
     enable = false,
