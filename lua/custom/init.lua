@@ -9,4 +9,3 @@
 vim.opt.relativenumber = true;
 vim.opt.swapfile = false;
 vim.opt.scrolloff = 5;
-vim.opt.swapfile = false;
