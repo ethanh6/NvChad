@@ -85,7 +85,13 @@ local plugins = {
     config = function()
       require('numb').setup()
     end,
-  }
+  },
+  {
+    "EdenEast/nightfox.nvim",
+    config = function()
+      require("nightfox").setup()
+    end,
+  },
 
   -- To make a plugin not be loaded
   -- {
