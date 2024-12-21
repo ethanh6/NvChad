@@ -57,7 +57,7 @@ local options = {
     },
   },
   renderer = {
-    root_folder_label = true,
+    root_folder_label = false,
     root_folder_modifier = ":t",
     highlight_git = false,
     highlight_opened_files = "none",
