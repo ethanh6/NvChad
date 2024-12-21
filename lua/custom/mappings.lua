@@ -18,8 +18,7 @@ M.general = {
       "<cmd> LazyGit <CR>",
       "LazyGit"
     }
-  }
-
+  },
 }
 
 M.nvterm = {
@@ -78,8 +77,8 @@ M.telescope = {
     ["<leader>fr"] = { "<cmd> Telescope registers <CR>", "Find Registers" },
 
     -- git
-    ["<leader>fgc"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },  -- find git commit
-    ["<leader>fgt"] = { "<cmd> Telescope git_status <CR>", "Git status" }, -- find git status
+    ["<leader>fgc"] = { "<cmd> Telescope git_commits <CR>", "Git commits" }, -- find git commit
+    ["<leader>fgt"] = { "<cmd> Telescope git_status <CR>", "Git status" },   -- find git status
 
     -- pick a hidden term
     ["<leader>ft"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" }, -- find terminal
@@ -167,6 +166,19 @@ M.gitsigns = {
 
   },
 }
+
+M.copilot = {
+  i = {
+    ["<C-l>"] = {
+      function()
+        vim.fn.feedkeys(vim.fn['copilot#Accept'](), '')
+      end,
+      "Copilot Accept",
+      {replace_keycodes = true, nowait=true, silent=true, expr=true, noremap=true}
+    }
+  },
+}
+
 -- more keybinds!
 
 return M
