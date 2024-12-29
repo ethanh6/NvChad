@@ -17,6 +17,10 @@ M.general = {
     ["<leader>gg"] = {
       "<cmd> LazyGit <CR>",
       "LazyGit"
+    },
+    ["<leader>dk"] = {
+      "<cmd> LazyDocker <CR>",
+      "LazyDocker"
     }
   },
 }
