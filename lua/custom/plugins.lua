@@ -92,6 +92,13 @@ local plugins = {
       require("nightfox").setup()
     end,
   },
+  -- {
+  --   "nvzone/timerly",
+  --   dependencies = {
+  --     "nvzone/volt",
+  --   },
+  --   cmd = "TimerlyToggle"
+  -- }
 
   -- To make a plugin not be loaded
   -- {
