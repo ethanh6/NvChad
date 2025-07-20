@@ -94,6 +94,56 @@ local plugins = {
     end,
   },
   {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    config = function()
+      require("catppuccin").setup({
+        flavour = "mocha", -- latte, frappe, macchiato, mocha (darkest)
+        transparent_background = false,
+        integrations = {
+          nvimtree = true,
+          telescope = {
+            enabled = true,
+            style = "nvchad"
+          },
+          which_key = true,
+          treesitter = true,
+          mason = true,
+          cmp = true,
+          gitsigns = true,
+          markdown = true,
+        }
+      })
+    end,
+  },
+  {
+    "folke/tokyonight.nvim",
+    priority = 1000,
+    config = function()
+      require("tokyonight").setup({
+        style = "night", -- storm, moon, night (darkest), day
+        transparent = false,
+        terminal_colors = true,
+        styles = {
+          comments = { italic = false },
+          keywords = { italic = false },
+          functions = {},
+          variables = {},
+        },
+        integrations = {
+          nvimtree = true,
+          telescope = true,
+          which_key = true,
+          treesitter = true,
+          mason = true,
+          cmp = true,
+          gitsigns = true,
+        }
+      })
+    end,
+  },
+  {
 		"crnvl96/lazydocker.nvim",
 		event = "VeryLazy",
 		opts = {}, -- automatically calls `require("lazydocker").setup()`
