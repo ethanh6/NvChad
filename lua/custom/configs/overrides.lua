@@ -12,6 +12,8 @@ M.treesitter = {
     "c",
     "markdown",
     "markdown_inline",
+    "jsonnet",
+    "starlark",
   },
   indent = {
     enable = true,
@@ -40,6 +42,12 @@ M.mason = {
 
     -- shell stuff
     "shfmt",
+
+    -- jsonnet stuff
+    "jsonnet-language-server",
+
+    -- bazel stuff
+    "bazel-language-server",
   },
 }
 
