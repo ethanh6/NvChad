@@ -49,6 +49,7 @@ local plugins = {
 
   {
     "github/copilot.vim",
+    enabled = false,
     lazy = false,
     config = function()
       -- Mapping tab is already used by NvChad
@@ -99,7 +100,42 @@ local plugins = {
 		dependencies = {
 			"MunifTanjim/nui.nvim",
 		},
-	}
+	},
+  {
+    "MeanderingProgrammer/render-markdown.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-tree/nvim-web-devicons", -- Already included in NvChad
+    },
+    ft = "markdown",
+    opts = {
+      -- Configure rendering options
+      heading = {
+        -- Add icons to headings
+        enabled = true,
+        sign = true,
+        icons = { "󰲡 ", "󰲣 ", "󰲥 ", "󰲧 ", "󰲩 ", "󰲫 " },
+      },
+      code = {
+        -- Enable code block rendering
+        enabled = true,
+        sign = true,
+        style = "full",
+        border = "thin",
+      },
+      checkbox = {
+        -- Enable checkbox rendering
+        enabled = true,
+        unchecked = { icon = "󰄱 " },
+        checked = { icon = "󰱒 " },
+      },
+      bullet = {
+        -- Enable bullet point rendering
+        enabled = true,
+        icons = { "●", "○", "◆", "◇" },
+      },
+    },
+  }
   -- {
   --   "nvzone/timerly",
   --   dependencies = {
