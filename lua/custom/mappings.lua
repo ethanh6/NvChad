@@ -7,6 +7,9 @@ M.general = {
     -- easy enter command mode
     -- [";"] = { ":", "enter command mode", opts = { nowait = true } },
 
+    -- override core mapping for new buffer
+    ["<leader>b"] = { "<nop>", "Buffer prefix" },
+
     -- toggle theme
     ["<leader>aa"] = {
       function()
@@ -180,6 +183,44 @@ M.copilot = {
       "Copilot Accept",
       {replace_keycodes = true, nowait=true, silent=true, expr=true, noremap=true}
     }
+  },
+}
+
+M.render_markdown = {
+  n = {
+    ["<leader>md"] = {
+      "<cmd>RenderMarkdown toggle<CR>",
+      "Toggle markdown rendering"
+    },
+  },
+}
+
+M.buffer_management = {
+  n = {
+    ["<leader>bd"] = {
+      function()
+        local current_buf = vim.api.nvim_get_current_buf()
+        local buffers = vim.api.nvim_list_bufs()
+        
+        for _, buf in ipairs(buffers) do
+          -- Skip current buffer, nvim-tree buffer, and special buffers
+          if buf ~= current_buf and vim.api.nvim_buf_is_valid(buf) then
+            local buf_name = vim.api.nvim_buf_get_name(buf)
+            local buf_type = vim.api.nvim_buf_get_option(buf, 'buftype')
+            
+            -- Don't close NvimTree, terminals, or other special buffers
+            -- Also don't close unsaved buffers (force = false)
+            if not string.match(buf_name, "NvimTree") and
+               buf_type ~= 'terminal' and
+               buf_type ~= 'nofile' and
+               buf_type ~= 'help' then
+              vim.api.nvim_buf_delete(buf, { force = false })
+            end
+          end
+        end
+      end,
+      "Close all buffers except current (skip unsaved)"
+    },
   },
 }
 
