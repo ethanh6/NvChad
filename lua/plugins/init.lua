@@ -124,9 +124,10 @@ local default_plugins = {
     end,
   },
 
-  -- load luasnips + cmp related in insert mode only
+  -- load luasnips + cmp related in insert mode only (DISABLED for blink.cmp)
   {
     "hrsh7th/nvim-cmp",
+    enabled = false, -- Disabled in favor of blink.cmp
     event = "InsertEnter",
     dependencies = {
       {
@@ -149,13 +150,13 @@ local default_plugins = {
         config = function(_, opts)
           require("nvim-autopairs").setup(opts)
 
-          -- setup cmp for autopairs
-          local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-          require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
+          -- setup cmp for autopairs (DISABLED for blink.cmp)
+          -- local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+          -- require("cmp").event:on("confirm_done", cmp_autopairs.on_confirm_done())
         end,
       },
 
-      -- cmp sources plugins
+      -- cmp sources plugins (DISABLED for blink.cmp)
       {
         "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lua",

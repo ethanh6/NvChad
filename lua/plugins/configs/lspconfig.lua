@@ -20,8 +20,11 @@ M.on_init = function(client, _)
   end
 end
 
+-- Updated capabilities for blink.cmp compatibility
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
+-- blink.cmp provides LSP capabilities automatically
+-- Keep basic capabilities for non-completion LSP features
 M.capabilities.textDocument.completion.completionItem = {
   documentationFormat = { "markdown", "plaintext" },
   snippetSupport = true,
@@ -39,6 +42,12 @@ M.capabilities.textDocument.completion.completionItem = {
     },
   },
 }
+
+-- Enhance capabilities with blink.cmp if available
+local has_blink, blink = pcall(require, "blink.cmp")
+if has_blink then
+  M.capabilities = blink.get_lsp_capabilities(M.capabilities)
+end
 
 require("lspconfig").lua_ls.setup {
   on_init = M.on_init,
