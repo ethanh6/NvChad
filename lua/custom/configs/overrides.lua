@@ -14,6 +14,7 @@ M.treesitter = {
     "markdown_inline",
     "jsonnet",
     "starlark",
+    "go",
   },
   indent = {
     enable = true,
@@ -48,6 +49,10 @@ M.mason = {
 
     -- bazel stuff
     "bazel-language-server",
+
+    -- go stuff
+    "gopls",
+    "gofumpt",
   },
 }
 
