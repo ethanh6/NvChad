@@ -226,17 +226,11 @@ M.buffer_management = {
 
 M.oil = {
   n = {
-    ["<leader>oo"] = {
+    ["<leader>-"] = {
       function()
         require("oil").open()
       end,
       "Open oil file explorer"
-    },
-    ["<leader>of"] = {
-      function()
-        require("oil").open_float()
-      end,
-      "Open oil in floating window"
     },
   },
 }

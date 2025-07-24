@@ -271,49 +271,44 @@ local plugins = {
     opts_extend = { "sources.default" }
   },
   {
+    "refractalize/oil-git-status.nvim",
+    config = function()
+      require("oil-git-status").setup({
+        show_ignored = true, -- show files that match gitignore patterns
+        -- Optional: customize symbols for different git status indicators
+        symbols = {
+          index = {
+            ["A"] = "󰈞", -- Added
+            ["M"] = "󰏫", -- Modified
+            ["D"] = "", -- Deleted
+            ["R"] = "", -- Renamed
+            ["C"] = "󰆏", -- Copied
+            ["U"] = "", -- Unmerged
+            ["?"] = "", -- Untracked
+            [" "] = " ", -- Unchanged
+          },
+          working_tree = {
+            ["A"] = "", -- Added
+            ["M"] = "", -- Modified
+            ["D"] = "", -- Deleted
+            ["R"] = "", -- Renamed
+            ["C"] = "󰆏", -- Copied
+            ["U"] = "", -- Unmerged
+            ["?"] = "", -- Untracked
+            [" "] = " ", -- Unchanged
+          },
+        },
+      })
+    end,
+  },
+  {
     "stevearc/oil.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons", -- Already included in NvChad
-      {
-        "SirZenith/oil-vcs-status",
-        config = function()
-          local status_const = require("oil-vcs-status.constant.status")
-          
-          local StatusType = status_const.StatusType
-          
-          require("oil-vcs-status").setup({
-            status_symbol = {
-              [StatusType.Added]     = "",
-              [StatusType.Copied]    = "󰆏",
-              [StatusType.Deleted]   = "",
-              [StatusType.Ignored]   = "",
-              [StatusType.Modified]  = "",
-              [StatusType.Renamed]   = "",
-              [StatusType.TypeChanged] = "󰉺",
-              [StatusType.Unmodified] = " ",
-              [StatusType.Unmerged]  = "",
-              [StatusType.Untracked] = "",
-              [StatusType.External]  = "",
-              
-              [StatusType.UpstreamAdded]     = "󰈞",
-              [StatusType.UpstreamCopied]    = "󰈢",
-              [StatusType.UpstreamDeleted]   = "",
-              [StatusType.UpstreamIgnored]   = " ",
-              [StatusType.UpstreamModified]  = "󰏫",
-              [StatusType.UpstreamRenamed]   = "",
-              [StatusType.UpstreamTypeChanged] = "󱧶",
-              [StatusType.UpstreamUnmodified] = " ",
-              [StatusType.UpstreamUnmerged]  = "",
-              [StatusType.UpstreamUntracked] = " ",
-              [StatusType.UpstreamExternal]  = "",
-            },
-          })
-        end,
-      },
     },
     opts = {
       -- Oil will take over directory buffers (e.g. `vim .` or `:e src/`)
-      default_file_explorer = true,
+      default_file_explorer = false,
       -- Id is automatically added at the beginning, and name at the end
       columns = {
         "icon",
@@ -338,7 +333,7 @@ local plugins = {
         concealcursor = "nvic",
       },
       -- Send deleted files to the trash instead of permanently deleting them (:help oil-trash)
-      delete_to_trash = true,
+      delete_to_trash = false,
       -- Skip the confirmation popup for simple operations (:help oil.skip-confirm)
       skip_confirm_for_simple_edits = false,
       -- Selecting a new/moved/renamed file or directory will prompt you to save changes first
@@ -346,6 +341,8 @@ local plugins = {
       -- Oil will automatically delete hidden buffers after this delay
       cleanup_delay_ms = 2000,
       lsp_file_methods = {
+        -- Enable or disable LSP file operations
+        enabled = true,
         -- Time to wait for LSP file operations to complete before skipping
         timeout_ms = 1000,
         -- Set to true to autosave buffers that are updated with LSP willRenameFiles
@@ -373,15 +370,40 @@ local plugins = {
         ["gx"] = "actions.open_external",
         ["g."] = "actions.toggle_hidden",
         ["g\\"] = "actions.toggle_trash",
+        -- Custom close that doesn't quit Neovim
+        ["q"] = function()
+          -- local oil = require("oil")
+          -- local bufnr = vim.api.nvim_get_current_buf()
+          -- Check if there are other non-oil buffers
+          local buffers = vim.api.nvim_list_bufs()
+          local non_oil_buffers = 0
+          for _, buf in ipairs(buffers) do
+            if vim.api.nvim_buf_is_loaded(buf) and 
+               vim.api.nvim_buf_get_option(buf, 'buflisted') and
+               vim.api.nvim_buf_get_option(buf, 'filetype') ~= 'oil' then
+              non_oil_buffers = non_oil_buffers + 1
+            end
+          end
+          
+          if non_oil_buffers > 0 then
+            -- Close oil buffer and return to previous buffer
+            vim.cmd('bprevious')
+          else
+            -- If no other buffers, create a new empty buffer
+            vim.cmd('enew')
+          end
+        end,
       },
       -- Set to false to disable all of the above keymaps
       use_default_keymaps = true,
       view_options = {
         -- Show files and directories that start with "."
-        show_hidden = false,
+        show_hidden = true,
         -- This function defines what is considered a "hidden" file
         is_hidden_file = function(name, bufnr)
-          return vim.startswith(name, ".")
+          -- return vim.startswith(name, ".")
+          local m = name:match("^%.")
+          return m ~= nil
         end,
         -- This function defines what will never be shown, even when `show_hidden` is set
         is_always_hidden = function(name, bufnr)
@@ -394,56 +416,18 @@ local plugins = {
           { "name", "asc" },
         },
       },
-      -- Configuration for the floating window in oil.open_float
-      float = {
-        -- Padding around the floating window
-        padding = 2,
-        max_width = 0,
-        max_height = 0,
-        border = "rounded",
-        win_options = {
-          winblend = 0,
-        },
-        -- This is the config that will be passed to nvim_open_win.
-        -- Change values here to customize the layout
-        override = function(conf)
-          return conf
-        end,
-      },
       -- Configuration for the actions floating preview window
-      preview = {
-        -- Width dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-        -- min_width and max_width can be a single value or a list of mixed integer/float types.
-        max_width = 0.9,
-        -- min_width = {40, 0.4} means "the greater of 40 columns or 40% of total"
-        min_width = { 40, 0.4 },
-        -- optionally define an integer/float for the exact width of the preview window
-        width = nil,
-        -- Height dimensions can be integers or a float between 0 and 1 (e.g. 0.4 for 40%)
-        max_height = 0.9,
-        min_height = { 5, 0.1 },
-        -- optionally define an integer/float for the exact height of the preview window
-        height = nil,
-        border = "rounded",
-        win_options = {
-          winblend = 0,
-        },
+      preview_win = {
         -- Whether the preview window is automatically updated when the cursor is moved
         update_on_cursor_moved = true,
-      },
-      -- Configuration for the floating progress window
-      progress = {
-        max_width = 0.9,
-        min_width = { 40, 0.4 },
-        width = nil,
-        max_height = { 10, 0.9 },
-        min_height = { 5, 0.1 },
-        height = nil,
-        border = "rounded",
-        minimized_border = "none",
-        win_options = {
-          winblend = 0,
-        },
+        -- How to open the preview window "load"|"scratch"|"fast_scratch"
+        preview_method = "fast_scratch",
+        -- A function that returns true to disable preview on a file e.g. to avoid lag
+        disable_preview = function(filename)
+          return false
+        end,
+        -- Window-local options to use for preview window buffers
+        win_options = {},
       },
       -- Configuration for the floating SSH window
       ssh = {
