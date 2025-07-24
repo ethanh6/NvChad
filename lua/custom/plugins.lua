@@ -144,13 +144,13 @@ local plugins = {
     end,
   },
   {
-		"crnvl96/lazydocker.nvim",
-		event = "VeryLazy",
-		opts = {}, -- automatically calls `require("lazydocker").setup()`
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
-	},
+    "crnvl96/lazydocker.nvim",
+    event = "VeryLazy",
+    opts = {}, -- automatically calls `require("lazydocker").setup()`
+    dependencies = {
+      "MunifTanjim/nui.nvim",
+    },
+  },
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -163,7 +163,7 @@ local plugins = {
   },
   {
     "ray-x/go.nvim",
-    dependencies = {  -- optional packages
+    dependencies = { -- optional packages
       "ray-x/guihua.lua",
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
@@ -171,8 +171,8 @@ local plugins = {
     config = function()
       require("go").setup()
     end,
-    event = {"CmdlineEnter"},
-    ft = {"go", 'gomod'},
+    event = { "CmdlineEnter" },
+    ft = { "go", 'gomod' },
     build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
   {
@@ -225,7 +225,7 @@ local plugins = {
         },
         config = function(_, opts)
           require("nvim-autopairs").setup(opts)
-          
+
           -- Setup autopairs integration with blink.cmp
           local has_blink, blink = pcall(require, "blink.cmp")
           if has_blink then
