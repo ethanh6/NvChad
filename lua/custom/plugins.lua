@@ -309,6 +309,7 @@ local plugins = {
   },
   {
     "stevearc/oil.nvim",
+    lazy = false,
     dependencies = {
       "nvim-tree/nvim-web-devicons", -- Already included in NvChad
     },
