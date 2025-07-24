@@ -89,6 +89,9 @@ M.telescope = {
 
     -- pick a hidden term
     ["<leader>ft"] = { "<cmd> Telescope terms <CR>", "Pick hidden term" }, -- find terminal
+    
+    -- live grep with args
+    ["<leader>fw"] = { "<cmd> Telescope live_grep_args <CR>", "Live grep with args" },
   },
 }
 

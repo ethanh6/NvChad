@@ -302,6 +302,12 @@ local plugins = {
     end,
   },
   {
+    "nvim-telescope/telescope-live-grep-args.nvim",
+    config = function()
+      require("telescope").load_extension("live_grep_args")
+    end,
+  },
+  {
     "stevearc/oil.nvim",
     dependencies = {
       "nvim-tree/nvim-web-devicons", -- Already included in NvChad
