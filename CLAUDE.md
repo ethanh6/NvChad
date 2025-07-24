@@ -42,9 +42,15 @@ This is a **NvChad v2.0** based Neovim configuration with extensive customizatio
 - **LazyDocker**: Docker TUI integration (`<leader>dk`)
 - **nvim-neoclip.lua**: Clipboard manager
 - **numb.nvim**: Line number peek
-- **nightfox.nvim**: Additional theme option
+- **nightfox.nvim, catppuccin, tokyonight**: Additional theme options
 - **conform.nvim**: Code formatting
 - **GitHub Copilot**: AI code completion (disabled by default, `<C-l>` to accept)
+- **nvim-surround**: Text object manipulation for surrounding characters
+- **go.nvim**: Enhanced Go development with LSP and tools
+- **render-markdown.nvim**: Live markdown rendering with icons and formatting
+- **blink.cmp**: Fast completion engine (replaces nvim-cmp)
+- **oil.nvim**: File explorer that edits filesystem like a buffer
+- **oil-git-status.nvim**: Git status integration for oil.nvim
 
 ## Key Mappings
 
@@ -55,6 +61,24 @@ This is a **NvChad v2.0** based Neovim configuration with extensive customizatio
 - `<leader>tt`: Toggle NvimTree
 - `<leader>ww`: Close current buffer (custom override of default `<leader>x`)
 - `<C-\>`: Toggle floating terminal
+- `<leader>-`: Open oil.nvim file explorer
+- `<leader>bd`: Close all buffers except current (skip unsaved)
+- `<leader>md`: Toggle markdown rendering
+
+### Oil.nvim File Explorer
+- `<leader>-`: Open oil.nvim
+- `q`: Close oil buffer without quitting Neovim (custom keymap)
+- `<CR>`: Open file/directory
+- `<C-s>`: Open in vertical split
+- `<C-h>`: Open in horizontal split
+- `<C-t>`: Open in new tab
+- `<C-p>`: Preview file
+- `<C-c>`: Close oil
+- `<C-l>`: Refresh
+- `-`: Go to parent directory
+- `g.`: Toggle hidden files
+- `gs`: Change sort order
+- `gx`: Open with external program
 
 ### Git Integration
 - `<leader>gnh/gph`: Navigate next/previous git hunks
@@ -63,10 +87,41 @@ This is a **NvChad v2.0** based Neovim configuration with extensive customizatio
 
 ### Telescope Extensions
 - `<leader>fcmd`: Find commands
-- `<leader>fch`: Find command history  
+- `<leader>fch`: Find command history
+- `<leader>fsh`: Find search history
 - `<leader>fk`: Find keymaps
+- `<leader>fr`: Find registers
 - `<leader>fgc`: Git commits
 - `<leader>fgt`: Git status
+- `<leader>ft`: Pick hidden terminal
+
+### Buffer Management
+- `<S-h>/<S-l>`: Navigate previous/next buffer
+- `<leader>ww`: Close current buffer
+- `<leader>bd`: Close all buffers except current
+
+## Plugin Configuration Details
+
+### Oil.nvim File Explorer
+- **File explorer mode**: `default_file_explorer = false` (manual activation only)
+- **Columns displayed**: icon, permissions, size, mtime
+- **Hidden files**: Enabled by default (`show_hidden = true`)
+- **Git integration**: Uses `oil-git-status.nvim` for git status indicators
+- **Custom quit behavior**: `q` key safely closes oil without quitting Neovim
+
+### Blink.cmp Completion
+- **Completion engine**: Replaces nvim-cmp for better performance
+- **Keymap preset**: "default" (tab to navigate, enter to accept)
+- **Sources**: LSP, path, snippets, buffer
+- **Signature help**: Enabled
+- **Autopairs integration**: Automatic via nvim-autopairs
+
+### Markdown Rendering
+- **Live rendering**: `render-markdown.nvim` with icons and styling
+- **Headings**: Custom icons for different heading levels
+- **Code blocks**: Full styling with borders
+- **Checkboxes**: Custom unchecked/checked icons
+- **Toggle**: `<leader>md` to enable/disable rendering
 
 ## Configuration Management
 
