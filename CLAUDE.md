@@ -33,9 +33,9 @@ This is a **NvChad v2.0** based Neovim configuration with extensive customizatio
 ## Installed Plugins & Tools
 
 ### Development Tools
-- **LSP**: lua-language-server, css-lsp, html-lsp, typescript-language-server, clangd, jsonnet-language-server, bazel-language-server, deno
+- **LSP**: lua-language-server, css-lsp, html-lsp, typescript-language-server, clangd, jsonnet-language-server, bazel-language-server, deno, yaml-language-server
 - **Formatters**: stylua, prettier, clang-format, shfmt
-- **Treesitter**: Supports vim, lua, html, css, javascript, typescript, tsx, c, markdown, jsonnet, starlark
+- **Treesitter**: Supports vim, lua, html, css, javascript, typescript, tsx, c, markdown, jsonnet, starlark, go, yaml
 
 ### Additional Plugins
 - **LazyGit**: Git TUI integration (`<leader>gg`)
@@ -122,6 +122,12 @@ This is a **NvChad v2.0** based Neovim configuration with extensive customizatio
 - **Code blocks**: Full styling with borders
 - **Checkboxes**: Custom unchecked/checked icons
 - **Toggle**: `<leader>md` to enable/disable rendering
+
+### YAML Folding
+- **Treesitter-based folding**: Uses syntax-aware folding for YAML files
+- **Configuration**: `lua/custom/init.lua` - FileType autocmd for YAML
+- **Default behavior**: Folding disabled by default (`foldenable = false`)
+- **Fold method**: Expression-based using `nvim_treesitter#foldexpr()`
 
 ## Configuration Management
 

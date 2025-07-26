@@ -12,6 +12,9 @@ local options = {
     sh = { "shfmt" },
     cpp = { "clangd",  "clang-format" },
 
+    yaml = { "prettier" },
+    yml = { "prettier" },
+
   },
 
   -- adding same formatter for multiple filetypes can look too much work for some

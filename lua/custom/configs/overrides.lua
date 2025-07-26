@@ -15,12 +15,16 @@ M.treesitter = {
     "jsonnet",
     "starlark",
     "go",
+    "yaml",
   },
   indent = {
     enable = true,
     -- disable = {
     --   "python"
     -- },
+  },
+  fold = {
+    enable = true,
   },
 }
 
@@ -53,6 +57,9 @@ M.mason = {
     -- go stuff
     "gopls",
     "gofumpt",
+
+    -- yaml stuff
+    "yaml-language-server",
   },
 }
 
