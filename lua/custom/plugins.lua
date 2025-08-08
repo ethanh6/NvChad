@@ -469,7 +469,7 @@ local plugins = {
   {
     "nvim-neorg/neorg",
     lazy = false,
-    version = "*",
+    version = "v9.3.0",
 
     dependencies = {
       "nvim-lua/plenary.nvim",
