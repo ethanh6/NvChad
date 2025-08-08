@@ -466,6 +466,53 @@ local plugins = {
       require("oil").setup(opts)
     end,
   },
+  {
+    "nvim-neorg/neorg",
+    lazy = false,
+    version = "*",
+
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-neorg/neorg-telescope",
+    },
+
+    config = function()
+      require("neorg").setup({
+        load = {
+          ["core.defaults"] = {},
+          ["core.dirman"] = {
+            config = {
+              workspaces = {
+                notes = "~/neorg/notes",
+                projects = "~/neorg/projects",
+                journal = "~/neorg/journal",
+              },
+              default_workspace = "notes",
+              index = "index.norg",
+            },
+          },
+          ["core.journal"] = {
+            config = {
+              workspace = "journal",
+              strategy = "nested",
+            },
+          },
+          ["core.concealer"] = {
+            config = {
+              icon_preset = "diamond",
+            },
+          },
+          ["core.export"] = {},
+          ["core.export.markdown"] = {
+            config = {
+              extensions = "all",
+            },
+          },
+          ["core.integrations.telescope"] = {},
+        },
+      })
+    end,
+  },
   -- {
   --   "nvzone/timerly",
   --   dependencies = {
