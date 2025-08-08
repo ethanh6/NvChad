@@ -516,11 +516,10 @@ local plugins = {
   {
     "lukas-reineke/indent-blankline.nvim",
     main = "ibl",
-    ---@module "ibl"
-    ---@type ibl.config
+    version = "v3.9.0", -- Use for stability; omit to use `main` branch for the latest features
     opts = {},
     config = function()
-      local highlight = {
+      local highlightLines = {
         "RainbowRed",
         "RainbowYellow",
         "RainbowBlue",
@@ -529,6 +528,11 @@ local plugins = {
         "RainbowViolet",
         "RainbowCyan",
       }
+
+      -- local highlightDimLines = {
+      --   'RainbowDimRed',
+      --   -- ... and so on for the other colors
+      -- }
 
       local hooks = require("ibl.hooks")
       -- create the highlight groups in the highlight setup hook, so they are reset
@@ -543,9 +547,19 @@ local plugins = {
         vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
       end)
 
-      require("ibl").setup { indent = { highlight = highlight } }
-
       hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+
+      require('ibl').setup {
+        indent = {
+          highlight = highlightLines,
+          char = '┊',
+          tab_char = '┊',
+        },
+        scope = {
+          highlight = highlightLines,
+          char = '▎',
+        }
+      }
     end,
   }
   -- {
