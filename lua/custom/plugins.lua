@@ -310,7 +310,7 @@ local plugins = {
           live_grep_args = {
             auto_quoting = true, -- enable/disable auto-quoting
             -- define mappings, e.g.
-            mappings = { -- extend mappings
+            mappings = {         -- extend mappings
               i = {
                 ["<C-k>"] = lga_actions.quote_prompt(),
                 ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
@@ -406,13 +406,13 @@ local plugins = {
           local buffers = vim.api.nvim_list_bufs()
           local non_oil_buffers = 0
           for _, buf in ipairs(buffers) do
-            if vim.api.nvim_buf_is_loaded(buf) and 
-               vim.api.nvim_buf_get_option(buf, 'buflisted') and
-               vim.api.nvim_buf_get_option(buf, 'filetype') ~= 'oil' then
+            if vim.api.nvim_buf_is_loaded(buf) and
+                vim.api.nvim_buf_get_option(buf, 'buflisted') and
+                vim.api.nvim_buf_get_option(buf, 'filetype') ~= 'oil' then
               non_oil_buffers = non_oil_buffers + 1
             end
           end
-          
+
           if non_oil_buffers > 0 then
             -- Close oil buffer and return to previous buffer
             vim.cmd('bprevious')
@@ -513,6 +513,41 @@ local plugins = {
       })
     end,
   },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {},
+    config = function()
+      local highlight = {
+        "RainbowRed",
+        "RainbowYellow",
+        "RainbowBlue",
+        "RainbowOrange",
+        "RainbowGreen",
+        "RainbowViolet",
+        "RainbowCyan",
+      }
+
+      local hooks = require("ibl.hooks")
+      -- create the highlight groups in the highlight setup hook, so they are reset
+      -- every time the colorscheme changes
+      hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+        vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+        vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+        vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+        vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+        vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+        vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+        vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+      end)
+
+      require("ibl").setup { indent = { highlight = highlight } }
+
+      hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
+    end,
+  }
   -- {
   --   "nvzone/timerly",
   --   dependencies = {
